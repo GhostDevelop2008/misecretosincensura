@@ -1562,7 +1562,7 @@
             event.preventDefault();
             if (!currentUID) { showToast("Aún conectando... Por favor, espera.", true); return; }
             const lastSecretTime = localStorage.getItem('lastSecretTime');
-            if (lastSecretTime && (Date.now() - parseInt(lastSecretTime)) < 20000) { showToast("Espera antes de publicar otro secreto.", true); return; }
+            if (lastSecretTime && (Date.now() - parseInt(lastSecretTime)) < 1) { showToast("Espera antes de publicar otro secreto.", true); return; }
 
             const secretInput = document.getElementById('secretInput').value;
             const ageInput = parseInt(document.getElementById('ageInput').value.trim(), 10);
@@ -1610,7 +1610,7 @@
             if (!currentUID) { showToast("Aún conectando...", true); return; }
             const COOLDOWN_SECONDS = 10;
             const lastResponseTime = localStorage.getItem(`lastResponseTime_${currentUID}`);
-            if (lastResponseTime && (Date.now() - parseInt(lastResponseTime)) < (COOLDOWN_SECONDS * 1000)) { showToast("Debes esperar un poco antes de comentar nuevamente.", true); return; }
+            if (lastResponseTime && (Date.now() - parseInt(lastResponseTime)) < (COOLDOWN_SECONDS * 1)) { showToast("Debes esperar un poco antes de comentar nuevamente.", true); return; }
             const form = event.target;
             const submitButton = form.querySelector('button[type="submit"]');
             const parentId = form.querySelector('.response-parent-id').value;
