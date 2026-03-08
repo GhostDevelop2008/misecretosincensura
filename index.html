@@ -1357,10 +1357,10 @@
                         </div>
                         <div class="form-floating mb-3">
                             <textarea class="form-control" id="secretInput" placeholder="" style="height:180px" required
-                                minlength="10" maxlength="300"></textarea>
+                                minlength="10" maxlength="3000"></textarea>
                             <label for="secretInput">✏️ Escribe tu secreto aquí...</label>
                         </div>
-                        <div id="charCounter" class="form-text text-end mb-4">300 caracteres restantes</div>
+                        <div id="charCounter" class="form-text text-end mb-4">3000 caracteres restantes</div>
                         <div class="text-center">
                             <button type="submit" id="submitSecretBtn" class="btn btn-primary btn-lg w-100 send-btn">
                                 <span class="material-icons me-2 align-middle">rocket_launch</span>
@@ -1699,7 +1699,7 @@
             snackbar.textContent = message;
             snackbar.className = "show";
             if (isError) snackbar.classList.add("error");
-            setTimeout(() => { snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+            setTimeout(() => { snackbar.className = snackbar.className.replace("show", ""); }, 30000);
         }
 
         function showConfirmDialog(title, message, onConfirmCallback) {
@@ -1885,7 +1885,7 @@
                                     <div class="col"><input type="number" class="form-control response-age" min="18" max="100" placeholder="Edad" required></div>
                                     <div class="col"><select class="form-select response-gender" required><option value="" disabled selected>Género</option><option value="Masculino">Masculino</option><option value="Femenino">Femenino</option></select></div>
                                 </div>
-                                <textarea class="form-control response-message" rows="3" placeholder="Escribe tu respuesta..." required maxlength="300"></textarea>
+                                <textarea class="form-control response-message" rows="3" placeholder="Escribe tu respuesta..." required maxlength="3000"></textarea>
                                 <div class="d-flex justify-content-end mt-2"><button type="submit" class="btn btn-primary">Enviar</button></div>
                             </form>
                             <div class="responses-container" id="responses-container-${secret.id}"></div>
@@ -2344,7 +2344,7 @@
         function updateCharCounterText() {
             const charCounter = document.getElementById('charCounter');
             const secretInput = document.getElementById('secretInput');
-            if (charCounter && secretInput) charCounter.textContent = `${300 - secretInput.value.length} caracteres restantes`;
+            if (charCounter && secretInput) charCounter.textContent = `${3000 - secretInput.value.length} caracteres restantes`;
         }
 
         window.addEventListener('scroll', () => {
@@ -2529,7 +2529,7 @@
                     wrapperElement.style.opacity = '0';
                     wrapperElement.style.margin = '0';
                     await deleteNotification(notificationId);
-                    setTimeout(() => wrapperElement.remove(), 300);
+                    setTimeout(() => wrapperElement.remove(), 3000);
                 });
             });
             itemElement.addEventListener('click', () => {
@@ -2607,7 +2607,7 @@
                         commentItem.remove();
                         const container = document.getElementById('myCommentsContent');
                         if (!container.hasChildNodes()) showEmptyState(container, "Aún no has publicado ningún comentario.");
-                    }, 300);
+                    }, 3000);
                     showToast("Comentario eliminado de tu historial.");
                 } catch (error) {
                     console.error("Error al borrar del historial:", error);
