@@ -1,0 +1,2662 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <script>window.process = { env: { NODE_ENV: 'production' } };</script>
+    <script>
+        (function () {
+            try {
+                const theme = localStorage.getItem('theme') || 'light';
+                if (theme !== 'light') document.documentElement.classList.add(theme + '-mode');
+            } catch (e) { }
+        })();
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1065040103368872"
+        crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiSecreto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700;800&family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f0f0f0;
+            --header-bg: #007BFF;
+            --card-bg: #ffffff;
+            --text: #212529;
+            --text-muted: #6c757d;
+            --border: #ddd;
+            --icon-color: #333;
+            --nav-btn-color: #888;
+            --nav-btn-active: #007BFF;
+            --nav-bg: rgba(255, 255, 255, 0.7);
+        }
+
+        html.dark-mode {
+            --bg: #181818;
+            --header-bg: #333;
+            --card-bg: #2a2a2a;
+            --text: #e0e0e0;
+            --text-muted: #aaa;
+            --border: #444;
+            --icon-color: #e0e0e0;
+            --nav-btn-color: #aaa;
+            --nav-btn-active: #4dabf7;
+            --nav-bg: rgba(20, 20, 20, 0.75);
+        }
+
+        html.amoled-mode {
+            --bg: #000000;
+            --header-bg: #1c1c1c;
+            --card-bg: #121212;
+            --text: #e0e0e0;
+            --text-muted: #aaa;
+            --border: #333;
+            --icon-color: #e0e0e0;
+            --nav-btn-color: #aaa;
+            --nav-btn-active: #4dabf7;
+            --nav-bg: rgba(0, 0, 0, 0.75);
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Lato', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 70px;
+        }
+
+        h1,
+        h2,
+        h4,
+        .btn {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .material-icons {
+            font-family: 'Material Icons';
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .material-icons:hover {
+            color: #d0d0d0;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: space-between;
+        }
+
+        .header-content h1 {
+            margin: 0;
+            flex: 1;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .secret-box,
+        .activity-box {
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        html.dark-mode .secret-box,
+        html.dark-mode .activity-box {
+            background-color: var(--card-bg);
+        }
+
+        html.amoled-mode .secret-box,
+        html.amoled-mode .activity-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .modal-body .tab-content {
+            display: block !important;
+        }
+
+        .modal-body {
+            overscroll-behavior-y: contain;
+        }
+
+        .secret-entry {
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            word-wrap: break-word;
+        }
+
+        .secret-entry.masculino {
+            background-color: #cce5ff;
+            border-left: 10px solid #007bff;
+        }
+
+        .secret-entry.femenino {
+            background-color: #f8d7da;
+            border-left: 10px solid #e83e8c;
+        }
+
+        html.dark-mode .secret-entry.masculino,
+        html.amoled-mode .secret-entry.masculino {
+            background-color: #4a4a4a;
+            border-left-color: #0056b3;
+        }
+
+        html.dark-mode .secret-entry.femenino,
+        html.amoled-mode .secret-entry.femenino {
+            background-color: #4a4a4a;
+            border-left-color: #e83e8c;
+        }
+
+        .secret-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 10px;
+        }
+
+        .secret-header strong {
+            font-weight: 700;
+        }
+
+        .secret-header span {
+            flex-shrink: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .secret-body {
+            font-size: 16px;
+            margin-top: 5px;
+            overflow-wrap: break-word;
+            line-height: 1.6;
+        }
+
+        .vote-buttons {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .vote-count {
+            font-size: 16px;
+            margin: 0 10px;
+        }
+
+        .vote-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            margin: 0 10px;
+            padding: 5px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vote-button .material-icons {
+            font-size: 24px;
+            color: #6c757d;
+        }
+
+        .vote-button:hover .material-icons {
+            color: #007BFF;
+        }
+
+        html.dark-mode .vote-button .material-icons,
+        html.amoled-mode .vote-button .material-icons {
+            color: var(--text-muted);
+        }
+
+        html.dark-mode .vote-button:hover .material-icons,
+        html.amoled-mode .vote-button:hover .material-icons {
+            color: var(--nav-btn-active);
+        }
+
+        .vote-button.voted {
+            animation: pop 0.4s ease-out;
+        }
+
+        @keyframes pop {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.4) rotate(-15deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(0);
+            }
+        }
+
+        .response-btn {
+            background-color: transparent;
+            border: none;
+            padding: 5px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: #6c757d;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .response-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        html.dark-mode .response-btn,
+        html.amoled-mode .response-btn {
+            color: var(--text-muted);
+        }
+
+        html.dark-mode .response-btn:hover,
+        html.amoled-mode .response-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .response-btn .material-icons {
+            font-size: 24px;
+            color: inherit;
+        }
+
+        .response-btn .response-count {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .response-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .response-item.masculino {
+            background-color: #cce5ff;
+            border-left: 5px solid #007bff;
+        }
+
+        .response-item.femenino {
+            background-color: #f8d7da;
+            border-left: 5px solid #e83e8c;
+        }
+
+        html.dark-mode .response-item.masculino,
+        html.amoled-mode .response-item.masculino {
+            background-color: #3a3f5c;
+            border-left-color: #007bff;
+            color: var(--text);
+        }
+
+        html.dark-mode .response-item.femenino,
+        html.amoled-mode .response-item.femenino {
+            background-color: #4a3a4a;
+            border-left-color: #e83e8c;
+            color: var(--text);
+        }
+
+        .response-item.reply {
+            margin-left: 5px;
+            margin-top: 10px;
+        }
+
+        .response-vote-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 8px;
+        }
+
+        .response-vote-controls .vote-button .material-icons {
+            font-size: 20px;
+        }
+
+        .response-actions {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .reply-btn {
+            background: transparent;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .reply-btn .material-icons {
+            font-size: 20px;
+        }
+
+        .responses-container {
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .reply-context {
+            background-color: rgba(0, 0, 0, 0.05);
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            border-left-width: 3px;
+            border-left-style: solid;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+
+        html.dark-mode .reply-context,
+        html.amoled-mode .reply-context {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .reply-context.masculino {
+            border-left-color: #007BFF;
+        }
+
+        .reply-context.femenino {
+            border-left-color: #e83e8c;
+        }
+
+        .reply-context p {
+            margin: 0;
+            word-break: break-word;
+        }
+
+        .send-btn {
+            background: linear-gradient(90deg, #007BFF, #0056b3);
+            border: none;
+        }
+
+        #shareSecret .secret-card {
+            border-top: 4px solid;
+            border-image: linear-gradient(90deg, #007BFF, #e83e8c) 1;
+            overflow: hidden;
+        }
+
+        .title-gradient {
+            background: -webkit-linear-gradient(45deg, #007BFF, #e83e8c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800 !important;
+        }
+
+        #charCounter {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .skeleton-card {
+            background-color: var(--card-bg);
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        .skeleton-header {
+            height: 20px;
+            width: 60%;
+            background-color: #e0e0e0;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .skeleton-body {
+            height: 60px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+        }
+
+        html.dark-mode .skeleton-header,
+        html.dark-mode .skeleton-body,
+        html.amoled-mode .skeleton-header,
+        html.amoled-mode .skeleton-body {
+            background-color: var(--border);
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.6;
+            }
+        }
+
+        .end-of-feed-message {
+            color: gray;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            max-width: 90%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1060;
+            left: 50%;
+            bottom: 80px;
+            font-size: 17px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transform: translateX(-50%);
+        }
+
+        #snackbar.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        #snackbar.error {
+            background-color: #dc3545;
+        }
+
+        html.dark-mode #snackbar,
+        html.amoled-mode #snackbar {
+            background-color: #e0e0e0;
+            color: #181818;
+        }
+
+        html.dark-mode #snackbar.error,
+        html.amoled-mode #snackbar.error {
+            background-color: #ff6b6b;
+        }
+
+        @keyframes fadein {
+            from {
+                bottom: 50px;
+                opacity: 0;
+            }
+
+            to {
+                bottom: 80px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                bottom: 80px;
+                opacity: 1;
+            }
+
+            to {
+                bottom: 50px;
+                opacity: 0;
+            }
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: var(--nav-bg);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1040;
+            border-top: 1px solid var(--border);
+        }
+
+        .bottom-nav-content {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .nav-btn {
+            position: relative;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--nav-btn-color);
+            flex-grow: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-top: 4px;
+        }
+
+        .nav-btn .material-icons {
+            font-size: 24px;
+            margin-bottom: 2px;
+            color: inherit;
+        }
+
+        .nav-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 11px;
+            font-weight: 500;
+            color: inherit;
+        }
+
+        .nav-btn.active .material-icons,
+        .nav-btn.active .nav-text {
+            color: var(--nav-btn-active);
+        }
+
+        .nav-btn.active .material-icons {
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active .nav-text {
+            font-weight: 700;
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: 8px;
+            left: calc(50% + 8px);
+            width: 10px;
+            height: 10px;
+            background-color: #ff3b30;
+            border-radius: 50%;
+            border: 2px solid white;
+            display: none;
+        }
+
+        .notification-dot.show {
+            display: block;
+        }
+
+        .fab-button {
+            position: fixed;
+            bottom: 85px;
+            right: 20px;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+            border: none;
+            cursor: pointer;
+            z-index: 1050;
+        }
+
+        .fab-button .material-icons {
+            font-size: 28px;
+        }
+
+        .fab-button.delete-mode {
+            background-color: #dc3545;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4);
+        }
+
+        .top-bar-container {
+            position: sticky;
+            top: 60px;
+            left: 0;
+            z-index: 999;
+            width: 100%;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 0;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .top-bar-container.hidden {
+            transform: translateY(-100%);
+        }
+
+        .view-selector-bar {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 10px 20px;
+            user-select: none;
+            gap: 16px;
+            box-sizing: border-box;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+        }
+
+        .search-bar .form-control {
+            border-radius: 20px;
+        }
+
+        @media (min-width: 768px) {
+
+            .view-selector-bar,
+            .bottom-nav-content {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+        }
+
+        #top-ui-block {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1020;
+        }
+
+        .hamburger-btn {
+            display: inline-flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 0;
+            color: #fff;
+        }
+
+        .hamburger-line {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: currentColor;
+            border-radius: 2px;
+            margin: 4px 0;
+            transition: transform 0.4s ease, opacity 0.3s ease;
+        }
+
+        .hamburger-btn.is-active .hamburger-line:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .hamburger-btn.is-active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-btn.is-active .hamburger-line:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        #menuOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1150;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        #menuOverlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 80%;
+            max-width: 320px;
+            height: 100%;
+            background-color: #0056b3;
+            z-index: 1200;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .side-menu.show {
+            transform: translateX(0);
+        }
+
+        .side-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .side-menu-header h2 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .side-menu-header .material-icons {
+            cursor: pointer;
+            color: white;
+        }
+
+        .side-menu-body {
+            padding: 10px 0;
+            overflow-y: auto;
+        }
+
+        .side-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .side-menu-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .side-menu-item .material-icons {
+            color: white !important;
+            font-size: 24px;
+        }
+
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #loadingOverlay p {
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #fff;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #confirmModal .modal-header {
+            display: flex;
+            align-items: center;
+        }
+
+        #confirmModalTitle {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        html.dark-mode .modal-content,
+        html.amoled-mode .modal-content {
+            background-color: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        html.dark-mode .modal-header,
+        html.dark-mode .modal-footer,
+        html.amoled-mode .modal-header,
+        html.amoled-mode .modal-footer {
+            border-color: var(--border);
+        }
+
+        html.dark-mode .btn-close,
+        html.amoled-mode .btn-close {
+            filter: invert(1);
+        }
+
+        html.dark-mode .form-control,
+        html.dark-mode .form-select {
+            background-color: #333 !important;
+            color: var(--text) !important;
+            border-color: #555 !important;
+        }
+
+        html.amoled-mode .form-control,
+        html.amoled-mode .form-select {
+            background-color: #1c1c1c !important;
+            color: var(--text) !important;
+            border-color: #444 !important;
+        }
+
+        html.dark-mode .form-control::placeholder,
+        html.amoled-mode .form-control::placeholder {
+            color: var(--text-muted);
+        }
+
+        html.dark-mode .form-select {
+            color-scheme: dark;
+        }
+
+        html.dark-mode .form-select option,
+        html.amoled-mode .form-select option {
+            background: var(--card-bg);
+            color: var(--text);
+        }
+
+        html.dark-mode .text-muted,
+        html.amoled-mode .text-muted {
+            color: #adb5bd !important;
+        }
+
+        .delete-secret-btn {
+            background: none;
+            border: none;
+            padding: 0 5px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .delete-secret-btn .material-icons {
+            font-size: 22px;
+            color: #dc3545;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-right: 8px;
+            vertical-align: middle;
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .cat-amor {
+            background-color: #ffe6e6;
+            color: #d63384;
+        }
+
+        .cat-desahogo {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .cat-confesion {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .cat-paranormal {
+            background-color: #e2d9f3;
+            color: #59359a;
+        }
+
+        html.dark-mode .category-badge,
+        html.amoled-mode .category-badge {
+            background-color: #3a3a3a;
+            color: #ddd;
+        }
+
+        html.dark-mode .cat-amor,
+        html.amoled-mode .cat-amor {
+            background-color: #5c2b2b;
+            color: #ffadad;
+        }
+
+        html.dark-mode .cat-desahogo,
+        html.amoled-mode .cat-desahogo {
+            background-color: #5c4d00;
+            color: #ffdf7e;
+        }
+
+        html.dark-mode .cat-confesion,
+        html.amoled-mode .cat-confesion {
+            background-color: #1a4d36;
+            color: #84dec1;
+        }
+
+        html.dark-mode .cat-paranormal,
+        html.amoled-mode .cat-paranormal {
+            background-color: #3b2a5c;
+            color: #d0bfff;
+        }
+
+        .op-badge {
+            background-color: var(--nav-btn-active);
+            color: white;
+            font-size: 0.7em;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 8px;
+            margin-left: 8px;
+            vertical-align: middle;
+            text-transform: uppercase;
+        }
+
+        .activity-item-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .activity-item {
+            position: relative;
+            z-index: 2;
+            background-color: var(--card-bg);
+            transition: transform 0.3s ease-in-out;
+            border-bottom: none;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon .material-icons {
+            font-size: 28px;
+            color: #007BFF;
+        }
+
+        html.dark-mode .activity-icon .material-icons,
+        html.amoled-mode .activity-icon .material-icons {
+            color: #4dabf7;
+        }
+
+        .activity-content {
+            flex-grow: 1;
+        }
+
+        .activity-content p {
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .activity-content .secret-excerpt {
+            font-style: italic;
+            color: #6c757d;
+            display: block;
+            margin-top: 4px;
+            overflow-wrap: break-word;
+        }
+
+        html.dark-mode .activity-content .secret-excerpt,
+        html.amoled-mode .activity-content .secret-excerpt {
+            color: #aaa;
+        }
+
+        .activity-timestamp {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .delete-action {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            z-index: 3;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #dc3545;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .delete-action .material-icons {
+            font-size: 20px;
+            color: white !important;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .activity-item-wrapper:hover .delete-action {
+                opacity: 1;
+                pointer-events: auto;
+            }
+        }
+
+        .activity-item.is-swiped {
+            transform: translateX(-60px);
+        }
+
+        .activity-item.is-swiped+.delete-action {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-45px, -50%);
+        }
+
+        .my-comment-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .delete-my-comment-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-my-comment-btn .material-icons {
+            font-size: 22px;
+            color: #dc3545;
+        }
+
+        .desktop-promo-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 12px 20px;
+            z-index: 9998;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 15px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .desktop-promo-banner.show {
+            display: flex;
+        }
+
+        .promo-icon img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+        }
+
+        .promo-text strong {
+            font-weight: 700;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .promo-badge {
+            height: 40px;
+            cursor: pointer;
+        }
+
+        .promo-close {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: transparent;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+        }
+
+        .promo-close .material-icons {
+            font-size: 20px;
+        }
+
+        @keyframes rotate-icon {
+            0% {
+                transform: rotate(0deg) scale(0.8);
+            }
+
+            50% {
+                transform: rotate(180deg) scale(1.1);
+            }
+
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        #toggleThemeBtn.animate-theme-toggle {
+            animation: rotate-icon 0.5s ease-in-out;
+        }
+
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        html:not(.dark-mode):not(.amoled-mode) .snowflake {
+            background-color: #b3e5fc;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateY(110vh) translateX(20px);
+                opacity: 0.2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="maintenanceOverlay"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:#f0f0f0; z-index:99999; justify-content:center; align-items:center; text-align:center; flex-direction:column; padding:20px; box-sizing:border-box;">
+        <div style="max-width:500px;">
+            <span class="material-icons" style="font-size:64px; color:#ff9800; margin-bottom:20px;">build</span>
+            <h1 style="font-family:'Poppins',sans-serif; font-size:2rem; color:#333; margin-bottom:15px;">En
+                Mantenimiento</h1>
+            <p style="font-family:'Lato',sans-serif; font-size:1.1rem; color:#6c757d; line-height:1.6;">Estamos
+                realizando mejoras. Volveremos pronto.</p>
+        </div>
+    </div>
+
+    <div id="top-ui-block">
+        <header>
+            <div class="header-content">
+                <button id="menuToggle" class="hamburger-btn" aria-label="Abrir menú">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+                <h1>MiSecreto</h1>
+                <div style="display:flex; align-items:center;">
+                    <i id="toggleSnowBtn" class="material-icons"
+                        style="margin-right:15px; cursor:pointer; display:none;">ac_unit</i>
+                    <i id="toggleThemeBtn" class="material-icons" style="cursor:pointer;">dark_mode</i>
+                </div>
+            </div>
+        </header>
+        <div class="top-bar-container">
+            <div class="view-selector-bar">
+                <div class="search-bar"><input type="search" id="searchInput" class="form-control"
+                        placeholder="🔍 Buscar en secretos..."></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-header">
+            <h2></h2><span id="closeMenuBtn" class="material-icons">close</span>
+        </div>
+        <div class="side-menu-body">
+            <a class="side-menu-item" href="mailto:legalmisecreto@gmail.com"><span
+                    class="material-icons">mail</span><span>Contáctanos</span></a>
+            <a class="side-menu-item" href="https://play.google.com/store/apps/details?id=com.misecreto.app"
+                target="_blank"><span class="material-icons">star_rate</span><span>Califica la App</span></a>
+            <hr>
+            <a class="side-menu-item" href="https://www.instagram.com/misecretoapp/" target="_blank"><span
+                    class="material-icons">camera_alt</span><span>Instagram</span></a>
+            <a class="side-menu-item" href="https://www.tiktok.com/@misecretoapp" target="_blank"><span
+                    class="material-icons">music_note</span><span>TikTok</span></a>
+            <hr>
+            <a class="side-menu-item" id="deleteAllDataBtn" href="#"><span class="material-icons"
+                    style="color:#ff6b6b !important;">delete_forever</span><span>Borrar Mis Datos</span></a>
+        </div>
+        <hr>
+        <a class="side-menu-item" href="https://misecretofree.web.app/easi.html"><span
+                class="material-icons">description</span><span>Términos de Uso</span></a>
+        <a class="side-menu-item" href="https://misecretofree.web.app/privacidad.html"><span
+                class="material-icons">lock</span><span>Aviso de Privacidad</span></a>
+    </div>
+
+    <div class="container">
+        <div id="shareSecret" class="tab-content">
+            <div class="card shadow-lg border-0 rounded-4 secret-card">
+                <div class="card-body p-4 p-md-5">
+                    <h4 class="text-center mb-2 fw-bold title-gradient">Comparte tu Secreto</h4>
+                    <p class="text-center text-muted mb-4">Tu confesión es anónima. Libera lo que sientes.</p>
+                    <form id="secretForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <select class="form-select" id="genderInput" required>
+                                        <option value="" disabled selected>Selecciona...</option>
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                    </select>
+                                    <label for="genderInput">🚻 Género</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="ageInput" placeholder="" min="18"
+                                        max="100" required>
+                                    <label for="ageInput">🎂 Edad</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" id="categoryInput" required>
+                                    <option value="general" selected>📢 General</option>
+                                    <option value="amor">❤️ Amor y Relaciones</option>
+                                    <option value="amistad">🤝 Amistad</option>
+                                    <option value="desahogo">😤 Desahogo</option>
+                                    <option value="confesion">🤫 Confesión</option>
+                                    <option value="consejo">💡 Pido Consejo</option>
+                                    <option value="paranormal">👻 Paranormal</option>
+                                </select>
+                                <label for="categoryInput">🏷️ Categoría</label>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="secretInput" placeholder="" style="height:180px" required
+                                minlength="10" maxlength="300"></textarea>
+                            <label for="secretInput">✏️ Escribe tu secreto aquí...</label>
+                        </div>
+                        <div id="charCounter" class="form-text text-end mb-4">300 caracteres restantes</div>
+                        <div class="text-center">
+                            <button type="submit" id="submitSecretBtn" class="btn btn-primary btn-lg w-100 send-btn">
+                                <span class="material-icons me-2 align-middle">rocket_launch</span>
+                                <span id="submitSecretText">Conectando...</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="trending" class="tab-content">
+            <div class="secret-box">
+                <div id="trendingContent"></div>
+            </div>
+        </div>
+        <div id="recent" class="tab-content">
+            <div class="secret-box">
+                <div id="recentContent"></div>
+            </div>
+        </div>
+        <div id="activity" class="tab-content">
+            <div class="activity-box">
+                <div id="activityContent"></div>
+            </div>
+        </div>
+        <div id="profile" class="tab-content">
+            <div class="profile-header" style="margin-bottom:20px;">
+                <div class="btn-group w-100" role="group">
+                    <button type="button" id="showMySecretsBtn" class="btn btn-primary active">Mis Secretos</button>
+                    <button type="button" id="showMyCommentsBtn" class="btn btn-primary">Mis Comentarios</button>
+                </div>
+            </div>
+            <div id="mySecretsContent"></div>
+            <div id="myCommentsContent" style="display:none;"></div>
+        </div>
+    </div>
+
+    <button id="fabButton" class="fab-button"><span class="material-icons">add</span></button>
+    <div id="snackbar"></div>
+
+    <nav class="bottom-nav">
+        <div class="bottom-nav-content">
+            <button class="nav-btn" data-target="trending"><span class="material-icons">trending_up</span><span
+                    class="nav-text">Trending</span></button>
+            <button class="nav-btn" data-target="recent"><span class="material-icons">history</span><span
+                    class="nav-text">Recientes</span></button>
+            <button class="nav-btn" data-target="profile"><span class="material-icons">person</span><span
+                    class="nav-text">Mi Perfil</span></button>
+            <button class="nav-btn" data-target="activity"><span class="material-icons">notifications</span><span
+                    class="nav-text">Actividad</span><span id="activityNotificationDot"
+                    class="notification-dot"></span></button>
+            <button id="chatNavBtn" class="nav-btn" onclick="handleChatClick()"><span
+                    class="material-icons">chat</span><span class="nav-text">Chat</span></button>
+        </div>
+    </nav>
+
+    <div id="desktopPromo" class="desktop-promo-banner">
+        <div class="promo-icon"><img
+                src="https://play-lh.googleusercontent.com/CvBDZf1hlTIGuH6yQ8-gRWW6MN1BZ1pkstSgvsUo0hm8vwl72PPjAOj2FxZA0-YnoM2juLYHboG5OE5YfYUphA=w240-h480-rw"
+                alt="MiSecreto"></div>
+        <div class="promo-text"><strong>Mejora tu experiencia</strong><span>Descarga MiSecreto para móvil.</span></div>
+        <a href="https://play.google.com/store/apps/details?id=com.misecreto.app" target="_blank"><img
+                class="promo-badge"
+                src="https://play.google.com/intl/en_us/badges/static/images/badges/es_badge_web_generic.png"
+                alt="Google Play"></a>
+        <button id="closePromoBtn" class="promo-close"><span class="material-icons">close</span></button>
+    </div>
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalTitle">Confirmar Acción</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="confirmModalBody">¿Estás seguro?</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Sí, Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="reportModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reportar Secreto</h5><button type="button" class="btn-close"
+                        data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Selecciona el motivo del reporte:</p>
+                    <input type="hidden" id="secretIdToReport">
+                    <div class="list-group">
+                        <button class="list-group-item list-group-item-action report-reason-btn"
+                            data-reason="Spam"><span
+                                class="material-icons fs-6 me-2 align-middle text-warning">campaign</span>Spam o
+                            Publicidad</button>
+                        <button class="list-group-item list-group-item-action report-reason-btn"
+                            data-reason="Acoso"><span
+                                class="material-icons fs-6 me-2 align-middle text-danger">gavel</span>Acoso o Incitación
+                            al Odio</button>
+                        <button class="list-group-item list-group-item-action report-reason-btn"
+                            data-reason="Inapropiado"><span
+                                class="material-icons fs-6 me-2 align-middle text-danger">no_adult_content</span>Contenido
+                            Inapropiado</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="menuOverlay"></div>
+    <div id="loadingOverlay" style="display:none;">
+        <div class="spinner"></div>
+        <p>Procesando...</p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
+        import { getFirestore, collection, addDoc, query, orderBy, limit, getDocs, doc, updateDoc, increment, getDoc, deleteDoc, serverTimestamp, where, startAfter, setDoc, arrayUnion, writeBatch, arrayRemove, runTransaction } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+        import {
+            getDatabase, ref, set, get, push, onValue, update, remove,
+            runTransaction as runRtdbTransaction,
+            serverTimestamp as rtdbTimestamp,
+            query as rtdbQuery,
+            limitToLast
+        } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCdHZ7F0NKOmmFVg0QetWSbMbyeUFoOVt4",
+            authDomain: "misecretofreesecretos.firebaseapp.com",
+            projectId: "misecretofreesecretos",
+            storageBucket: "misecretofreesecretos.appspot.com",
+            messagingSenderId: "621380080944",
+            appId: "1:621380080944:web:da1ec9ab68e0af12f664f5",
+            measurementId: "G-23E5EP8QKG",
+            databaseURL: "https://misecretofreesecretos-default-rtdb.europe-west1.firebasedatabase.app"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+        const rtdb = getDatabase(app);
+        const auth = getAuth(app);
+
+        logEvent(analytics, 'page_view', { page_title: 'Secretos' });
+
+        let currentUID = null;
+        let activityListenerUnsubscribe = null;
+
+        const filterRules = {
+            spam: {
+                message: "No se permiten solicitudes de contacto, enlaces externos o publicidad.",
+                words: ['sigueme', 'seguirme', 'suscribete', 'bitcoin', 'crypto', 'ganar dinero', 'onlyfans', 'telegram', 'kik', 'wickr', 'zangi', 'whatsapp', 'intercambio', 'vendo contenido', 'https', 'http', 't.me', 'discor', '.com']
+            },
+            danger: {
+                message: "Error al publicar. Inténtalo más tarde.",
+                words: ['cp', 'cepe', 'cheese pizza', 'pedofilo', 'pedofilia', 'cocaina', 'marihuana', 'porro', 'lsd', 'extasis', 'sicario', 'c/p']
+            }
+        };
+
+        function validateText(text) {
+            if (!text) return { isValid: true };
+            const lowerText = text.toLowerCase();
+            for (const [, rule] of Object.entries(filterRules)) {
+                for (const word of rule.words) {
+                    const regex = new RegExp(`\\b${word}\\b`, 'i');
+                    if (regex.test(lowerText)) {
+                        console.log('Filtro activado');
+                        return { isValid: false, message: rule.message };
+                    }
+                }
+            }
+            return { isValid: true };
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            const submitBtnText = document.getElementById('submitSecretText');
+            if (user) {
+                currentUID = user.uid;
+                await checkMaintenanceMode();
+                switchToTab(localStorage.getItem('lastActiveFeedTab') || 'trending');
+                submitBtnText.textContent = 'Enviar Secreto';
+                listenForNewActivity();
+            } else {
+                signInAnonymously(auth).catch((error) => {
+                    console.error("Error en la autenticación anónima:", error);
+                    showToast("No se pudo conectar. Refresca la página.", true);
+                    submitBtnText.textContent = 'Error de Conexión';
+                });
+            }
+        });
+
+        document.getElementById('secretForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            if (!currentUID) { showToast("Aún conectando... Por favor, espera.", true); return; }
+            const lastSecretTime = localStorage.getItem('lastSecretTime');
+            if (lastSecretTime && (Date.now() - parseInt(lastSecretTime)) < 20000) { showToast("Espera antes de publicar otro secreto.", true); return; }
+
+            const secretInput = document.getElementById('secretInput').value;
+            const ageInput = parseInt(document.getElementById('ageInput').value.trim(), 10);
+            const genderInput = document.getElementById('genderInput').value;
+            const categoryInput = document.getElementById('categoryInput').value || 'general';
+
+            if (!secretInput.trim() || !ageInput || !genderInput) { showToast("Todos los campos son obligatorios.", true); return; }
+            if (ageInput < 18) { showToast("Debes tener al menos 18 años.", true); return; }
+
+            const validation = validateText(secretInput);
+            if (!validation.isValid) {
+                showToast(validation.message, true);
+                logEvent(analytics, 'spam_detected', { content: secretInput.substring(0, 100) });
+                return;
+            }
+            try {
+                localStorage.setItem('lastSecretTime', Date.now().toString());
+                const locationData = await getFlagUrl();
+                const newSecretRef = await addDoc(collection(db, 'secrets'), {
+                    secret: secretInput, age: ageInput, gender: genderInput, category: categoryInput,
+                    flagUrl: locationData.flagUrl, countryCode: locationData.countryCode.toLowerCase(),
+                    timestamp: serverTimestamp(), votes: 0, uid: currentUID,
+                    responseCount: 0, reportCount: 0, reporters: [], status: 'visible'
+                });
+                const userProfileRef = doc(db, 'users', currentUID);
+                await setDoc(userProfileRef, { postedSecrets: arrayUnion(newSecretRef.id) }, { merge: true });
+                logEvent(analytics, 'share_secret');
+                showToast("¡Secreto enviado con éxito!");
+                localStorage.setItem('savedAge', ageInput);
+                localStorage.setItem('savedGender', genderInput);
+                document.getElementById('secretInput').value = '';
+                document.getElementById('recentContent').innerHTML = '';
+                lastVisibleRecent = null;
+                noMoreRecentSecrets = false;
+                switchToTab('recent');
+            } catch (err) {
+                console.error("Error enviando secreto:", err);
+                showToast("Error al enviar el secreto.", true);
+                localStorage.removeItem('lastSecretTime');
+            }
+        });
+
+        async function handleResponseSubmit(event, modalElement, secret) {
+            event.preventDefault();
+            if (!currentUID) { showToast("Aún conectando...", true); return; }
+            const COOLDOWN_SECONDS = 10;
+            const lastResponseTime = localStorage.getItem(`lastResponseTime_${currentUID}`);
+            if (lastResponseTime && (Date.now() - parseInt(lastResponseTime)) < (COOLDOWN_SECONDS * 1000)) { showToast("Debes esperar un poco antes de comentar nuevamente.", true); return; }
+            const form = event.target;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const parentId = form.querySelector('.response-parent-id').value;
+            const responseAge = parseInt(form.querySelector('.response-age').value.trim(), 10);
+            const responseGender = form.querySelector('.response-gender').value;
+            const responseMessage = form.querySelector('.response-message').value;
+            if (!responseMessage.trim() || !responseAge || !responseGender) { showToast("Completa todos los campos.", true); return; }
+            const validation = validateText(responseMessage);
+            if (!validation.isValid) { showToast(validation.message, true); return; }
+            submitButton.disabled = true;
+            submitButton.textContent = 'Enviando...';
+            try {
+                const locationData = await getFlagUrl();
+                const responseData = {
+                    message: responseMessage, age: responseAge, gender: responseGender,
+                    flagUrl: locationData.flagUrl, countryCode: locationData.countryCode.toLowerCase(),
+                    timestamp: rtdbTimestamp(), votes: 0, parentId: parentId,
+                    uid: currentUID, secretId: secret.id
+                };
+                const commentsRef = ref(rtdb, `secret_comments/${secret.id}`);
+                const newResponseRef = push(commentsRef);
+                await set(newResponseRef, responseData);
+                await set(ref(rtdb, `user_comments_history/${currentUID}/${newResponseRef.key}`), { secretId: secret.id, timestamp: rtdbTimestamp() });
+
+                let recipientUid = null;
+                let notificationType = 'new_response';
+                let notificationContext = `a tu secreto: "${sanitizeHTML(secret.secret.substring(0, 50))}..."`;
+                if (parentId === 'root') {
+                    recipientUid = secret.uid;
+                } else {
+                    const parentRef = ref(rtdb, `secret_comments/${secret.id}/${parentId}`);
+                    const parentSnap = await get(parentRef);
+                    if (parentSnap.exists()) {
+                        const parentData = parentSnap.val();
+                        recipientUid = parentData.uid;
+                        notificationType = 'new_reply';
+                        notificationContext = `a tu comentario: "${sanitizeHTML(parentData.message.substring(0, 50))}..."`;
+                    }
+                }
+                if (recipientUid && recipientUid !== currentUID) {
+                    const notifRef = ref(rtdb, `notifications/${recipientUid}`);
+                    await set(push(notifRef), {
+                        type: notificationType, secretId: secret.id, recipientUid,
+                        responderUid: currentUID, responderGender: responseGender,
+                        responseId: newResponseRef.key, secretExcerpt: notificationContext,
+                        responseExcerpt: responseMessage.substring(0, 60), timestamp: rtdbTimestamp(), isRead: false
+                    });
+                }
+                await updateDoc(doc(db, "secrets", secret.id), { responseCount: increment(1) });
+                localStorage.setItem(`lastResponseTime_${currentUID}`, Date.now().toString());
+                showToast("Respuesta enviada.");
+                localStorage.setItem('savedAge', responseAge);
+                localStorage.setItem('savedGender', responseGender);
+                form.querySelector('.response-message').value = '';
+                document.querySelectorAll(`[data-id="${secret.id}"] .response-count`).forEach(el => el.textContent = parseInt(el.textContent) + 1);
+            } catch (error) {
+                console.error('Error al enviar respuesta:', error);
+                showToast("Error al enviar la respuesta.", true);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Enviar';
+            }
+        }
+
+        async function checkMaintenanceMode() {
+            try {
+                const configRef = doc(db, 'config', 'settings');
+                const docSnap = await getDoc(configRef);
+                if (docSnap.exists() && docSnap.data().isMaintenanceMode === true) {
+                    document.getElementById('maintenanceOverlay').style.display = 'flex';
+                    ['header', '.container', '.top-bar-container', '.bottom-nav', '#fabButton'].forEach(sel => {
+                        document.querySelector(sel)?.style.setProperty('display', 'none', 'important');
+                    });
+                }
+            } catch (error) { console.error("Error checking maintenance mode:", error); }
+        }
+
+        let isLoadingRecent = false, lastVisibleRecent = null, noMoreRecentSecrets = false;
+        let isLoadingTrending = false, trendingSecretsCache = [], trendingSecretsDisplayedCount = 0, noMoreTrendingSecrets = false;
+        const TRENDING_PAGE_SIZE = 10;
+        let activeSearchTerm = '';
+
+        function showToast(message, isError = false) {
+            const snackbar = document.getElementById("snackbar");
+            if (!snackbar) return;
+            snackbar.textContent = message;
+            snackbar.className = "show";
+            if (isError) snackbar.classList.add("error");
+            setTimeout(() => { snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+        }
+
+        function showConfirmDialog(title, message, onConfirmCallback) {
+            const modalEl = document.getElementById('confirmModal');
+            if (!modalEl) return;
+            const confirmModal = new bootstrap.Modal(modalEl);
+            document.getElementById('confirmModalTitle').innerHTML = `<span class="material-icons" style="color:#dc3545;vertical-align:middle;margin-right:8px;">warning</span><span style="vertical-align:middle;">${title}</span>`;
+            document.getElementById('confirmModalBody').textContent = message;
+            const confirmBtn = document.getElementById('confirmDeleteBtn');
+            const newConfirmBtn = confirmBtn.cloneNode(true);
+            confirmBtn.parentNode.replaceChild(newConfirmBtn, confirmBtn);
+            newConfirmBtn.addEventListener('click', () => { onConfirmCallback(); confirmModal.hide(); }, { once: true });
+            confirmModal.show();
+        }
+        window.showConfirmDialog = showConfirmDialog;
+
+        function sanitizeHTML(str) { return str ? str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;') : ''; }
+
+        function timeAgo(timestamp) {
+            if (!timestamp) return 'hace un momento';
+            let date;
+            if (timestamp.toDate && typeof timestamp.toDate === 'function') date = timestamp.toDate();
+            else if (typeof timestamp === 'number') date = new Date(timestamp);
+            else date = new Date(timestamp);
+            const now = new Date(), secondsPast = (now.getTime() - date.getTime()) / 1000;
+            if (secondsPast < 60) return `hace ${Math.round(secondsPast)}s`;
+            if (secondsPast < 3600) return `hace ${Math.round(secondsPast / 60)}m`;
+            if (secondsPast <= 86400) return `hace ${Math.round(secondsPast / 3600)}h`;
+            const day = date.toLocaleDateString('es-ES', { day: '2-digit', month: 'short' });
+            return now.getFullYear() === date.getFullYear() ? day : `${day}, ${date.getFullYear()}`;
+        }
+
+        async function getFlagUrl() {
+            const CACHE_KEY = 'userFlagData';
+            const CACHE_DURATION_MS = 6 * 60 * 60 * 1000;
+            const cachedDataString = localStorage.getItem(CACHE_KEY);
+            if (cachedDataString) {
+                const cachedData = JSON.parse(cachedDataString);
+                if (Date.now() - (cachedData.timestamp || 0) < CACHE_DURATION_MS) {
+                    return { countryCode: cachedData.countryCode, flagUrl: cachedData.flagUrl };
+                }
+            }
+            try {
+                const response = await fetch('https://get.geojs.io/v1/ip/country.json');
+                if (!response.ok) throw new Error('GeoIP error');
+                const data = await response.json();
+                const countryCode = data.country || '';
+                const result = { countryCode, flagUrl: countryCode ? `https://flagcdn.com/24x18/${countryCode.toLowerCase()}.png` : '' };
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ ...result, timestamp: Date.now() }));
+                return result;
+            } catch (error) {
+                console.warn("Geolocalización no disponible:", error);
+                return { countryCode: '', flagUrl: '' };
+            }
+        }
+
+        function showEmptyState(container, message) { container.innerHTML = `<div style="text-align:center;padding:50px 20px;color:#888;"><span class="material-icons" style="font-size:60px;margin-bottom:15px;color:#bbb;">explore_off</span><p style="font-size:1.1rem;">${message}</p></div>`; }
+        function showSkeletons(container) { container.innerHTML = Array(4).fill('<div class="skeleton-card"><div class="skeleton-header"></div><div class="skeleton-body"></div></div>').join(''); }
+
+        async function loadRecentSecrets() {
+            if (isLoadingRecent || noMoreRecentSecrets) return;
+            isLoadingRecent = true;
+            const recentContent = document.getElementById('recentContent');
+            if (!lastVisibleRecent) showSkeletons(recentContent);
+            let queryConstraints = [orderBy("timestamp", "desc")];
+            if (lastVisibleRecent) queryConstraints.push(startAfter(lastVisibleRecent));
+            queryConstraints.push(limit(10));
+            const secretsQuery = query(collection(db, 'secrets'), ...queryConstraints);
+            try {
+                const snapshot = await getDocs(secretsQuery);
+                if (!lastVisibleRecent) recentContent.innerHTML = '';
+                if (snapshot.empty) {
+                    noMoreRecentSecrets = true;
+                    if (!lastVisibleRecent) showEmptyState(recentContent, "No hay secretos aún.");
+                    else recentContent.insertAdjacentHTML('beforeend', '<p class="end-of-feed-message">Has llegado al final.</p>');
+                    return;
+                }
+                let secrets = [];
+                snapshot.forEach((d) => secrets.push({ id: d.id, ...d.data() }));
+                const filtered = secrets.filter(s => !activeSearchTerm || s.secret.toLowerCase().includes(activeSearchTerm.toLowerCase()));
+                if (filtered.length === 0 && !lastVisibleRecent) showEmptyState(recentContent, "Ningún secreto coincide con tu búsqueda.");
+                else filtered.forEach(secret => recentContent.appendChild(createSecretElement(secret, 'recent')));
+                lastVisibleRecent = snapshot.docs[snapshot.docs.length - 1];
+                if (snapshot.docs.length < 10) noMoreRecentSecrets = true;
+            } catch (error) {
+                console.error('Error cargando secretos recientes:', error);
+                showEmptyState(recentContent, "Error al cargar.");
+            } finally { isLoadingRecent = false; }
+        }
+
+        async function loadTrendingSecrets() {
+            if (isLoadingTrending) return;
+            isLoadingTrending = true;
+            noMoreTrendingSecrets = false;
+            const trendingContent = document.getElementById('trendingContent');
+            showSkeletons(trendingContent);
+            trendingSecretsCache = []; trendingSecretsDisplayedCount = 0;
+            const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+            const q = query(collection(db, 'secrets'), where('timestamp', '>=', sevenDaysAgo), limit(25));
+            try {
+                const snapshot = await getDocs(q);
+                if (snapshot.empty) { showEmptyState(trendingContent, "No hay secretos en tendencia."); return; }
+                snapshot.forEach(d => trendingSecretsCache.push({ id: d.id, ...d.data() }));
+                trendingSecretsCache.sort((a, b) => (b.votes || 0) - (a.votes || 0));
+                displayMoreTrendingSecrets();
+            } catch (error) {
+                console.error('Error cargando trending:', error);
+                showEmptyState(trendingContent, "Error al cargar los secretos.");
+            } finally { isLoadingTrending = false; }
+        }
+
+        function displayMoreTrendingSecrets() {
+            const trendingContent = document.getElementById('trendingContent');
+            const filtered = trendingSecretsCache.filter(s => !activeSearchTerm || s.secret.toLowerCase().includes(activeSearchTerm.toLowerCase()));
+            if (trendingSecretsDisplayedCount === 0 && filtered.length === 0) {
+                showEmptyState(trendingContent, "No se encontraron secretos.");
+                noMoreTrendingSecrets = true; return;
+            }
+            const toShow = filtered.slice(trendingSecretsDisplayedCount, trendingSecretsDisplayedCount + TRENDING_PAGE_SIZE);
+            if (trendingSecretsDisplayedCount === 0) trendingContent.innerHTML = '';
+            toShow.forEach(secret => trendingContent.appendChild(createSecretElement(secret, 'trending')));
+            trendingSecretsDisplayedCount += toShow.length;
+            if (trendingSecretsDisplayedCount >= filtered.length) {
+                noMoreTrendingSecrets = true;
+                if (trendingContent.children.length > 0 && !trendingContent.querySelector('.end-of-feed-message')) {
+                    trendingContent.insertAdjacentHTML('beforeend', '<p class="end-of-feed-message">Has llegado al final.</p>');
+                }
+            }
+        }
+
+        function createSecretElement(secret, type) {
+            const reportedSecrets = JSON.parse(localStorage.getItem('reportedSecrets')) || {};
+            if (reportedSecrets[secret.id]) {
+                const hiddenDiv = document.createElement('div');
+                hiddenDiv.style.display = 'none';
+                return hiddenDiv;
+            }
+            const entry = document.createElement('div');
+            entry.className = `secret-entry ${secret.gender.toLowerCase()}`;
+            entry.dataset.id = secret.id;
+            const modalId = `modal-${type}-${secret.id}`;
+            const cat = secret.category || 'general';
+            let catIcon = '📢', catClass = '';
+            if (cat === 'amor') { catIcon = '❤️'; catClass = 'cat-amor'; }
+            else if (cat === 'desahogo') { catIcon = '😤'; catClass = 'cat-desahogo'; }
+            else if (cat === 'confesion') { catIcon = '🤫'; catClass = 'cat-confesion'; }
+            else if (cat === 'paranormal') { catIcon = '👻'; catClass = 'cat-paranormal'; }
+            else if (cat === 'amistad') catIcon = '🤝';
+            else if (cat === 'consejo') catIcon = '💡';
+            const categoryBadgeHTML = `<span class="category-badge ${catClass}">${catIcon} ${cat.charAt(0).toUpperCase() + cat.slice(1)}</span>`;
+            let deleteButtonHTML = '';
+            if (currentUID && secret.uid === currentUID) {
+                deleteButtonHTML = `<button class="delete-secret-btn" onclick="showConfirmDialog('Eliminar Secreto','¿Eliminar este secreto? Esta acción no se puede deshacer.', () => window.confirmDeleteSecret(this,'${secret.id}'))"><span class="material-icons">delete_forever</span></button>`;
+            }
+            const reportButtonHTML = `<button class="vote-button report-btn" title="Reportar" onclick="window.openReportModal('${secret.id}')"><span class="material-icons">flag</span></button>`;
+            const isReported = secret.status === 'reported' || (secret.reportCount && secret.reportCount >= 6);
+            let secretBodyHTML, actionButtonsHTML;
+            if (isReported) {
+                secretBodyHTML = `<div class="secret-body" style="color:#6c757d;font-style:italic;text-align:center;padding:10px;"><span class="material-icons" style="font-size:24px;color:#dc3545;vertical-align:middle;">visibility_off</span> Este secreto está en revisión.</div>`;
+                actionButtonsHTML = `<div class="vote-buttons d-flex align-items-center justify-content-end">${deleteButtonHTML}</div>`;
+            } else {
+                secretBodyHTML = `<div class="secret-body"><hr>${sanitizeHTML(secret.secret)}</div>`;
+                actionButtonsHTML = `<div class="vote-buttons d-flex align-items-center"><hr><button class="vote-button" onclick="window.voteSecret(this,'${secret.id}',1)"><span class="material-icons">thumb_up</span></button><span class="vote-count">${secret.votes || 0}</span><button class="vote-button" onclick="window.voteSecret(this,'${secret.id}',-1)"><span class="material-icons">thumb_down</span></button><button type="button" class="response-btn" data-bs-toggle="modal" data-bs-target="#${modalId}"><span class="material-icons">chat</span><span class="response-count">${secret.responseCount || 0}</span></button><div class="ms-auto d-flex align-items-center">${reportButtonHTML}${deleteButtonHTML}</div></div>`;
+            }
+            entry.innerHTML = `
+            <div class="secret-header">
+                <span><strong>${secret.gender.toLowerCase() === 'femenino' ? '👩' : '🧔'} ${secret.age} años</strong>${secret.flagUrl ? `<img src="${secret.flagUrl}" alt="Bandera" style="margin-left:5px;vertical-align:middle;border-radius:2px;" loading="lazy">` : ''}
+                </span>
+                ${categoryBadgeHTML}
+                <span>${timeAgo(secret.timestamp)}</span>
+            </div>
+            ${secretBodyHTML}
+            ${actionButtonsHTML}
+            <div class="modal fade" id="${modalId}" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header"><h1 class="modal-title fs-5">Respuestas</h1><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                        <div class="modal-body">
+                            <form class="response-form mb-4">
+                                <input type="hidden" class="response-parent-id" value="root">
+                                <div id="replying-to-context-${secret.id}" style="display:none;"></div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col"><input type="number" class="form-control response-age" min="18" max="100" placeholder="Edad" required></div>
+                                    <div class="col"><select class="form-select response-gender" required><option value="" disabled selected>Género</option><option value="Masculino">Masculino</option><option value="Femenino">Femenino</option></select></div>
+                                </div>
+                                <textarea class="form-control response-message" rows="3" placeholder="Escribe tu respuesta..." required maxlength="300"></textarea>
+                                <div class="d-flex justify-content-end mt-2"><button type="submit" class="btn btn-primary">Enviar</button></div>
+                            </form>
+                            <div class="responses-container" id="responses-container-${secret.id}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+            const modal = entry.querySelector(`#${modalId}`);
+            let activeUnsubscribe = null;
+            modal.addEventListener('shown.bs.modal', e => {
+                const form = e.target.querySelector('.response-form');
+                form.querySelector('.response-age').value = localStorage.getItem('savedAge') || '';
+                form.querySelector('.response-gender').value = localStorage.getItem('savedGender') || '';
+                if (activeUnsubscribe) activeUnsubscribe();
+                activeUnsubscribe = loadResponses(e.target, secret);
+            });
+            modal.addEventListener('hidden.bs.modal', e => {
+                if (activeUnsubscribe) { activeUnsubscribe(); activeUnsubscribe = null; }
+                const container = e.target.querySelector('.responses-container');
+                if (container) container.innerHTML = '';
+            });
+            entry.querySelector('.response-form')?.addEventListener('submit', e => handleResponseSubmit(e, e.target.closest('.modal'), secret));
+            return entry;
+        }
+
+        async function confirmDeleteSecret(btn, secretId) {
+            if (!currentUID) return;
+            const secretCard = btn.closest('.secret-entry');
+            try {
+                secretCard.style.transition = 'opacity 0.5s';
+                secretCard.style.opacity = '0';
+                await deleteDoc(doc(db, 'secrets', secretId));
+                await updateDoc(doc(db, 'users', currentUID), { postedSecrets: arrayRemove(secretId) });
+                setTimeout(() => { secretCard.remove(); showToast("Secreto eliminado con éxito."); }, 500);
+            } catch (error) {
+                console.error("Error al eliminar el secreto:", error);
+                showToast("No se pudo eliminar el secreto.", true);
+                secretCard.style.opacity = '1';
+            }
+        }
+
+        async function performCommentSoftDelete(secretId, commentId) {
+            try {
+                const commentRef = ref(rtdb, `secret_comments/${secretId}/${commentId}`);
+                await update(commentRef, { message: '[Comentario eliminado por el usuario]', uid: 'deleted_user', gender: '', age: 0, flagUrl: '' });
+                return true;
+            } catch (error) {
+                console.error("Error al realizar el borrado suave:", error);
+                showToast("No se pudo eliminar el comentario.", true);
+                return false;
+            }
+        }
+
+        async function confirmDeleteResponse(btn, secretId, responseId) {
+            if (!currentUID) return;
+            const responseItem = btn.closest('.response-item');
+            const success = await performCommentSoftDelete(secretId, responseId);
+            if (success) {
+                responseItem.innerHTML = `<div style="color:#888;font-style:italic;padding:10px 0;"><span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span> [Comentario eliminado]</div><div class="replies-container">${responseItem.querySelector('.replies-container')?.innerHTML || ''}</div>`;
+                showToast("Comentario eliminado.");
+            }
+        }
+        window.confirmDeleteResponse = confirmDeleteResponse;
+        window.confirmDeleteSecret = confirmDeleteSecret;
+
+        function setupReply(modalElement, secret, parentId, parentMessage, parentGender) {
+            const form = modalElement.querySelector('.response-form');
+            const parentIdInput = form.querySelector('.response-parent-id');
+            const contextWrapper = modalElement.querySelector(`#replying-to-context-${secret.id}`);
+            const textarea = form.querySelector('.response-message');
+            parentIdInput.value = parentId;
+            contextWrapper.innerHTML = '';
+            let contextText = '', genderForColor = '';
+            if (parentId === 'root') {
+                contextText = `<p><strong>Respondiendo al secreto:</strong> "${sanitizeHTML(secret.secret)}"</p>`;
+                genderForColor = secret.gender.toLowerCase();
+                textarea.placeholder = "Escribe tu respuesta aquí...";
+            } else {
+                contextText = `<p><strong>Respondiendo a:</strong> "${sanitizeHTML(parentMessage)}"</p>`;
+                genderForColor = parentGender.toLowerCase();
+                textarea.placeholder = "Escribe tu respuesta al comentario...";
+            }
+            const contextElement = document.createElement('div');
+            contextElement.className = `reply-context ${genderForColor}`;
+            contextElement.innerHTML = contextText;
+            contextWrapper.appendChild(contextElement);
+            contextWrapper.style.display = 'block';
+            textarea.focus();
+        }
+
+        function loadResponses(modalElement, secret) {
+            setupReply(modalElement, secret, 'root');
+            const container = modalElement.querySelector('.responses-container');
+            container.innerHTML = `<div style="text-align:center;padding:20px;color:#888;">Cargando comentarios...</div>`;
+            const rtdbRef = rtdbQuery(ref(rtdb, `secret_comments/${secret.id}`), limitToLast(50));
+            let foundInRTDB = false;
+            const unsubscribe = onValue(rtdbRef, async (snapshot) => {
+                if (snapshot.exists()) {
+                    foundInRTDB = true;
+                    container.innerHTML = '';
+                    const data = snapshot.val();
+                    const allResponses = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+                    processAndRenderComments(allResponses, container, secret);
+                } else {
+                    if (!foundInRTDB) loadFromOldFirestore(container, secret);
+                }
+            }, (error) => {
+                console.error("Error RTDB:", error);
+                loadFromOldFirestore(container, secret);
+            });
+            return unsubscribe;
+        }
+
+        async function loadFromOldFirestore(container, secret) {
+            try {
+                const q = query(collection(db, `secrets/${secret.id}/responses`), orderBy('timestamp', 'asc'));
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) {
+                    container.innerHTML = '';
+                    let allResponses = [];
+                    snapshot.forEach(d => allResponses.push({ id: d.id, ...d.data() }));
+                    processAndRenderComments(allResponses, container, secret);
+                } else {
+                    container.innerHTML = `<div style="text-align:center;padding:20px;color:#888;">Sé el primero en responder.</div>`;
+                }
+            } catch (e) {
+                console.error("Error recuperando comentarios antiguos:", e);
+                container.innerHTML = `<div style="text-align:center;padding:20px;color:#888;">Sé el primero en responder.</div>`;
+            }
+        }
+
+        function processAndRenderComments(allResponses, container, secret) {
+            const responseMap = {};
+            allResponses.forEach(r => {
+                const parentId = r.parentId || 'root';
+                if (!responseMap[parentId]) responseMap[parentId] = [];
+                responseMap[parentId].push(r);
+            });
+            const rootResponses = (responseMap['root'] || []).sort((a, b) => (b.votes || 0) - (a.votes || 0));
+            rootResponses.forEach(response => renderResponseThread(response, responseMap, container, secret, false));
+        }
+
+        function renderResponseThread(response, responseMap, container, secret, isReply) {
+            const responseElement = createResponseElement(response, secret, isReply);
+            container.appendChild(responseElement);
+            const children = (responseMap[response.id] || []).sort((a, b) => a.timestamp - b.timestamp);
+            if (children.length > 0) {
+                let repliesContainer = responseElement.querySelector('.replies-container');
+                if (!repliesContainer) {
+                    repliesContainer = document.createElement('div');
+                    repliesContainer.className = 'replies-container';
+                    responseElement.appendChild(repliesContainer);
+                }
+                children.forEach(reply => renderResponseThread(reply, responseMap, repliesContainer, secret, true));
+            }
+        }
+
+        function createResponseElement(response, secret, isReply) {
+            const el = document.createElement('div');
+            const gender = response.gender ? response.gender.toLowerCase() : '';
+            el.className = `response-item ${gender} ${isReply ? 'reply' : ''}`;
+            el.dataset.responseId = response.id;
+            if (response.uid === 'deleted_user') {
+                el.innerHTML = `<div style="color:#888;font-style:italic;padding:10px 0;"><span class="material-icons" style="font-size:16px;vertical-align:middle;">delete</span> [Comentario eliminado]</div><div class="replies-container"></div>`;
+                return el;
+            }
+            let deleteButtonHTML = '';
+            if (currentUID && response.uid === currentUID) {
+                deleteButtonHTML = `<button class="delete-secret-btn" onclick="showConfirmDialog('Eliminar Comentario','El texto se borrará, pero las respuestas permanecerán.', () => window.confirmDeleteResponse(this,'${secret.id}','${response.id}'))"><span class="material-icons">delete_forever</span></button>`;
+            }
+            let opBadgeHTML = '';
+            if (secret.uid && response.uid && secret.uid === response.uid) opBadgeHTML = '<span class="op-badge">Autor</span>';
+            el.innerHTML = `<div class="d-flex justify-content-between align-items-center mb-2"><span><strong>${gender === 'femenino' ? '👩' : '🧔'} ${response.age} años</strong>${response.flagUrl ? `<img src="${response.flagUrl}" alt="" style="margin-left:5px;vertical-align:middle;border-radius:2px;" loading="lazy">` : ''}${opBadgeHTML}</span><span style="font-size:0.9em;color:#888;">${timeAgo(response.timestamp)}</span></div><div>${sanitizeHTML(response.message)}</div><div class="response-actions"><div class="response-vote-controls"><button class="vote-button" onclick="window.voteResponse(this,'${secret.id}','${response.id}',1)"><span class="material-icons">thumb_up</span></button><span class="vote-count">${response.votes || 0}</span><button class="vote-button" onclick="window.voteResponse(this,'${secret.id}','${response.id}',-1)"><span class="material-icons">thumb_down</span></button></div><button class="reply-btn"><span class="material-icons">reply</span></button><div style="margin-left:auto;">${deleteButtonHTML}</div></div><div class="replies-container"></div>`;
+            el.querySelector('.reply-btn').addEventListener('click', (e) => {
+                const modalElement = e.target.closest('.modal');
+                if (modalElement) setupReply(modalElement, secret, response.id, response.message, response.gender);
+            });
+            return el;
+        }
+
+        async function voteSecret(btn, id, v) {
+            if (!currentUID) { showToast("Aún conectando...", true); return; }
+            const cooldownKey = `voteCooldown-${id}`;
+            const lastVoteTime = localStorage.getItem(cooldownKey);
+            if (lastVoteTime && (Date.now() - parseInt(lastVoteTime)) < 2000) { showToast("Vota más despacio.", true); return; }
+            localStorage.setItem(cooldownKey, Date.now().toString());
+            btn.classList.add('voted');
+            setTimeout(() => btn.classList.remove('voted'), 400);
+            const voteStateKey = `votedState-${id}`;
+            if (localStorage.getItem(voteStateKey)) { showToast("Ya has votado en este secreto.", true); return; }
+            const allCountElements = document.querySelectorAll(`[data-id="${id}"] .vote-count`);
+            allCountElements.forEach(count => { count.textContent = parseInt(count.textContent) + v; });
+            try {
+                const userVoteRef = ref(rtdb, `secret_votes/${id}/${currentUID}`);
+                const snapshot = await get(userVoteRef);
+                if (snapshot.exists()) {
+                    allCountElements.forEach(count => { count.textContent = parseInt(count.textContent) - v; });
+                    showToast("Ya has votado en este secreto.", true);
+                    localStorage.setItem(voteStateKey, 'voted');
+                    return;
+                }
+                await set(userVoteRef, { voteType: v > 0 ? 'up' : 'down', timestamp: rtdbTimestamp() });
+                await updateDoc(doc(db, 'secrets', id), { votes: increment(v) });
+                localStorage.setItem(voteStateKey, 'voted');
+            } catch (error) {
+                allCountElements.forEach(count => { count.textContent = parseInt(count.textContent) - v; });
+                console.error('Error en la votación:', error);
+                showToast("Ya has votado en este secreto.", true);
+                localStorage.setItem(voteStateKey, 'voted');
+            }
+        }
+
+        async function voteResponse(btn, sId, rId, v) {
+            if (!currentUID) { showToast("Aún conectando...", true); return; }
+            const cooldownKey = `voteCooldownResponse-${rId}`;
+            const lastVoteTime = localStorage.getItem(cooldownKey);
+            if (lastVoteTime && (Date.now() - parseInt(lastVoteTime)) < 2000) { showToast("Vota más despacio.", true); return; }
+            localStorage.setItem(cooldownKey, Date.now().toString());
+            btn.classList.add('voted');
+            setTimeout(() => btn.classList.remove('voted'), 400);
+            const voteStateKey = `votedStateResponse-${rId}`;
+            if (localStorage.getItem(voteStateKey)) { showToast("Ya has votado en esta respuesta.", true); return; }
+            const count = btn.closest('.response-actions').querySelector('.vote-count');
+            const originalVotes = parseInt(count.textContent);
+            count.textContent = originalVotes + v;
+            try {
+                const userVoteRef = ref(rtdb, `comment_votes/${rId}/${currentUID}`);
+                const snapshot = await get(userVoteRef);
+                if (snapshot.exists()) {
+                    count.textContent = originalVotes;
+                    showToast("Ya has votado en esta respuesta.", true);
+                    localStorage.setItem(voteStateKey, 'voted');
+                    return;
+                }
+                await set(userVoteRef, { type: v > 0 ? 'up' : 'down' });
+                const commentRef = ref(rtdb, `secret_comments/${sId}/${rId}`);
+                await runRtdbTransaction(commentRef, (comment) => {
+                    if (comment) comment.votes = (comment.votes || 0) + v;
+                    return comment;
+                });
+                localStorage.setItem(voteStateKey, 'voted');
+                if ((originalVotes + v) <= -15) confirmDeleteResponse(btn, sId, rId);
+            } catch (error) {
+                count.textContent = originalVotes;
+                console.error("Error al votar en respuesta:", error);
+                showToast("Ya has votado en esta respuesta.", true);
+                localStorage.setItem(voteStateKey, 'voted');
+            }
+        }
+
+        let reportModalInstance = null;
+        function openReportModal(secretId) {
+            if (!currentUID) { showToast("Necesitas estar conectado para reportar.", true); return; }
+            const reportedSecrets = JSON.parse(localStorage.getItem('reportedSecrets')) || {};
+            if (reportedSecrets[secretId]) { showToast("Ya has reportado este secreto.", true); return; }
+            if (!reportModalInstance) reportModalInstance = new bootstrap.Modal(document.getElementById('reportModal'));
+            document.getElementById('secretIdToReport').value = secretId;
+            reportModalInstance.show();
+        }
+
+        async function submitReport(reason) {
+            if (!currentUID) return;
+            const secretId = document.getElementById('secretIdToReport').value;
+            const reportedSecrets = JSON.parse(localStorage.getItem('reportedSecrets')) || {};
+            if (reportedSecrets[secretId]) { showToast("Ya has reportado este secreto.", true); return; }
+            if (reportModalInstance) reportModalInstance.hide();
+            showToast("Enviando reporte...");
+            try {
+                const secretRef = doc(db, 'secrets', secretId);
+                await updateDoc(secretRef, { reportCount: increment(1), reporters: arrayUnion(currentUID) });
+                reportedSecrets[secretId] = true;
+                localStorage.setItem('reportedSecrets', JSON.stringify(reportedSecrets));
+                const secretElement = document.querySelector(`.secret-entry[data-id="${secretId}"]`);
+                if (secretElement) secretElement.remove();
+                showToast("Secreto reportado.");
+            } catch (error) {
+                console.error("Error al reportar:", error);
+                showToast("Gracias por reportar");
+                reportedSecrets[secretId] = true;
+                localStorage.setItem('reportedSecrets', JSON.stringify(reportedSecrets));
+                const secretElement = document.querySelector(`.secret-entry[data-id="${secretId}"]`);
+                if (secretElement) secretElement.remove();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.report-reason-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.currentTarget.blur();
+                    submitReport(button.dataset.reason);
+                });
+            });
+        });
+        window.openReportModal = openReportModal;
+
+        function listenForNewActivity() {
+            if (activityListenerUnsubscribe && typeof activityListenerUnsubscribe === 'function') activityListenerUnsubscribe();
+            if (!currentUID) return;
+            const notifRef = rtdbQuery(ref(rtdb, `notifications/${currentUID}`), limitToLast(10));
+            activityListenerUnsubscribe = onValue(notifRef, (snapshot) => {
+                let hasUnread = false;
+                if (snapshot.exists()) snapshot.forEach(child => { if (child.val().isRead === false) hasUnread = true; });
+                document.getElementById('activityNotificationDot').classList.toggle('show', hasUnread);
+            });
+        }
+
+        async function loadActivityFeed() {
+            if (!currentUID) return;
+            const content = document.getElementById('activityContent');
+            showSkeletons(content);
+            const notifQuery = rtdbQuery(ref(rtdb, `notifications/${currentUID}`), limitToLast(20));
+            onValue(notifQuery, async (snapshot) => {
+                content.innerHTML = '';
+                if (!snapshot.exists()) { showEmptyState(content, "Cuando alguien responda a tus secretos, aparecerá aquí."); return; }
+                const data = snapshot.val();
+                let notifications = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+                notifications.sort((a, b) => b.timestamp - a.timestamp);
+                const updates = {};
+                notifications.forEach(n => {
+                    if (!n.isRead) updates[`/${n.id}/isRead`] = true;
+                    content.appendChild(createActivityElement(n));
+                });
+                if (Object.keys(updates).length > 0) {
+                    const baseRef = ref(rtdb, `notifications/${currentUID}`);
+                    await update(baseRef, updates);
+                }
+            }, { onlyOnce: false });
+        }
+
+        function createActivityElement(activity) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'activity-item-wrapper';
+            wrapper.dataset.id = activity.id;
+            const responderEmoji = activity.responderGender === 'Femenino' ? '👩' : '🧔';
+            wrapper.innerHTML = `<div class="activity-item" data-secret-id="${activity.secretId}"><div class="activity-icon"><span class="material-icons">forum</span></div><div class="activity-content"><p>${responderEmoji} Alguien ha respondido <span class="secret-excerpt">${sanitizeHTML(activity.secretExcerpt)}</span></p><p style="margin-top:5px;"><span class="secret-excerpt">"${sanitizeHTML(activity.responseExcerpt)}..."</span></p><div class="activity-timestamp">${timeAgo(activity.timestamp)}</div></div></div><div class="delete-action"><span class="material-icons">delete</span></div>`;
+            setupActivityItemActions(wrapper);
+            return wrapper;
+        }
+
+        async function showSecretFromNotification(secretId) {
+            if (!secretId) return;
+            const modalId = `modal-recent-${secretId}`;
+            let modalElement = document.getElementById(modalId);
+            if (modalElement) {
+                switchToTab('recent');
+                const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                modalInstance.show();
+                modalElement.closest('.secret-entry').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                showToast('Buscando el secreto...');
+                try {
+                    const secretRef = doc(db, 'secrets', secretId);
+                    const docSnap = await getDoc(secretRef);
+                    if (docSnap.exists()) {
+                        const secretData = { id: docSnap.id, ...docSnap.data() };
+                        const secretElement = createSecretElement(secretData, 'recent');
+                        const recentContent = document.getElementById('recentContent');
+                        switchToTab('recent');
+                        recentContent.prepend(secretElement);
+                        const newModalElement = document.getElementById(modalId);
+                        if (newModalElement) {
+                            const modalInstance = new bootstrap.Modal(newModalElement);
+                            modalInstance.show();
+                            secretElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    } else { showToast("El secreto ya no existe.", true); }
+                } catch (error) {
+                    console.error("Error al cargar el secreto:", error);
+                    showToast("No se pudo cargar el secreto.", true);
+                }
+            }
+        }
+
+        let userProfileData = null;
+        async function loadUserProfile() {
+            if (!currentUID) return;
+            document.getElementById('mySecretsContent').style.display = 'block';
+            document.getElementById('myCommentsContent').style.display = 'none';
+            document.getElementById('showMySecretsBtn').classList.add('active');
+            document.getElementById('showMyCommentsBtn').classList.remove('active');
+            const mySecretsContainer = document.getElementById('mySecretsContent');
+            showSkeletons(mySecretsContainer);
+            document.getElementById('myCommentsContent').innerHTML = '';
+            try {
+                const userProfileRef = doc(db, 'users', currentUID);
+                const userProfileSnap = await getDoc(userProfileRef);
+                if (!userProfileSnap.exists()) {
+                    showEmptyState(mySecretsContainer, "Aún no has publicado nada.");
+                    return;
+                }
+                userProfileData = userProfileSnap.data();
+                await loadMySecrets();
+            } catch (error) {
+                console.error("Error al cargar el perfil:", error);
+                showEmptyState(mySecretsContainer, "No se pudo cargar tu perfil.");
+            }
+        }
+
+        async function loadMySecrets() {
+            const container = document.getElementById('mySecretsContent');
+            container.innerHTML = '';
+            if (!currentUID) return;
+            showSkeletons(container);
+            try {
+                const secretsQuery = query(collection(db, 'secrets'), where('uid', '==', currentUID));
+                const snapshot = await getDocs(secretsQuery);
+                container.innerHTML = '';
+                if (snapshot.empty) { showEmptyState(container, "No has publicado ningún secreto todavía."); return; }
+                const sortedDocs = snapshot.docs.sort((a, b) => {
+                    const dateA = a.data().timestamp ? a.data().timestamp.toMillis() : 0;
+                    const dateB = b.data().timestamp ? b.data().timestamp.toMillis() : 0;
+                    return dateB - dateA;
+                });
+                sortedDocs.forEach(d => container.appendChild(createSecretElement({ id: d.id, ...d.data() }, 'profile')));
+            } catch (error) {
+                console.error("Error al cargar mis secretos:", error);
+                showEmptyState(container, "Error al cargar tus secretos.");
+            }
+        }
+
+        async function loadMyComments() {
+            const container = document.getElementById('myCommentsContent');
+            if (!currentUID) return;
+            showSkeletons(container);
+            const historyRef = ref(rtdb, `user_comments_history/${currentUID}`);
+            onValue(historyRef, async (snapshot) => {
+                container.innerHTML = '';
+                if (!snapshot.exists()) { showEmptyState(container, "Aún no has publicado ningún comentario."); return; }
+                const historyData = snapshot.val();
+                const entries = Object.keys(historyData).map(k => ({ id: k, ...historyData[k] })).sort((a, b) => b.timestamp - a.timestamp).slice(0, 30);
+                for (const entry of entries) {
+                    const commentRef = ref(rtdb, `secret_comments/${entry.secretId}/${entry.id}`);
+                    const commentSnap = await get(commentRef);
+                    if (commentSnap.exists()) {
+                        const commentData = commentSnap.val();
+                        let secretExcerpt = "[Cargando...]";
+                        try {
+                            const secretDoc = await getDoc(doc(db, 'secrets', entry.secretId));
+                            secretExcerpt = secretDoc.exists() ? secretDoc.data().secret.substring(0, 80) : "[Secreto eliminado]";
+                        } catch (e) { }
+                        const el = document.createElement('div');
+                        el.className = 'my-comment-item';
+                        el.innerHTML = `<div class="activity-content" onclick="window.showSecretFromNotification('${entry.secretId}')" style="cursor:pointer;flex-grow:1;"><p><strong>Comentaste:</strong> "${sanitizeHTML(commentData.message)}"</p><span class="secret-excerpt">en: "${sanitizeHTML(secretExcerpt)}..."</span><div class="activity-timestamp">${timeAgo(commentData.timestamp)}</div></div><button class="delete-my-comment-btn" onclick="window.deleteMyCommentFromProfile(this,'${entry.secretId}','${entry.id}')"><span class="material-icons">delete</span></button>`;
+                        container.appendChild(el);
+                    }
+                }
+            }, { onlyOnce: true });
+        }
+
+        function loadSavedUserData() {
+            document.getElementById('ageInput').value = localStorage.getItem('savedAge') || '';
+            document.getElementById('genderInput').value = localStorage.getItem('savedGender') || '';
+        }
+
+        function updateCharCounterText() {
+            const charCounter = document.getElementById('charCounter');
+            const secretInput = document.getElementById('secretInput');
+            if (charCounter && secretInput) charCounter.textContent = `${300 - secretInput.value.length} caracteres restantes`;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (isLoadingRecent || isLoadingTrending) return;
+            if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 150) {
+                const activeId = document.querySelector('.tab-content.active')?.id;
+                if (activeId === 'recent') loadRecentSecrets();
+                else if (activeId === 'trending' && !noMoreTrendingSecrets) displayMoreTrendingSecrets();
+            }
+        });
+
+        let isFirstLoad = true;
+        function reloadDataForCurrentTab() {
+            if (isFirstLoad) { isFirstLoad = false; return; }
+            const activeId = document.querySelector('.tab-content.active')?.id;
+            if (activeId === 'trending') loadTrendingSecrets();
+            else if (activeId === 'recent') {
+                document.getElementById('recentContent').innerHTML = '';
+                lastVisibleRecent = null; noMoreRecentSecrets = false;
+                loadRecentSecrets();
+            }
+        }
+
+        function switchToTab(targetId) {
+            const mainTabs = ['trending', 'recent', 'activity', 'profile'];
+            if (mainTabs.includes(targetId)) localStorage.setItem('lastActiveFeedTab', targetId);
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(targetId)?.classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.target === targetId));
+            const isFeedTab = ['recent', 'trending'].includes(targetId);
+            const topBarContainer = document.querySelector('.top-bar-container');
+            topBarContainer.style.display = isFeedTab ? 'block' : 'none';
+            if (isFeedTab) topBarContainer.classList.remove('hidden');
+            const fab = document.getElementById('fabButton');
+            const fabIcon = fab.querySelector('.material-icons');
+            if (targetId === 'activity') {
+                fab.style.display = 'flex';
+                fab.classList.add('delete-mode');
+                fabIcon.textContent = 'delete_forever';
+                fab.onclick = () => showConfirmDialog('Eliminar Todas', '¿Eliminar TODAS tus notificaciones? Esta acción es permanente.', deleteAllNotifications);
+            } else if (targetId === 'shareSecret') {
+                fab.style.display = 'none';
+            } else {
+                fab.style.display = 'flex';
+                fab.classList.remove('delete-mode');
+                fabIcon.textContent = 'add';
+                fab.onclick = () => switchToTab('shareSecret');
+            }
+            if (targetId === 'recent' && !document.getElementById('recentContent').hasChildNodes()) loadRecentSecrets();
+            if (targetId === 'trending' && !document.getElementById('trendingContent').hasChildNodes()) loadTrendingSecrets();
+            if (targetId === 'shareSecret') loadSavedUserData();
+            if (targetId === 'activity') loadActivityFeed();
+            if (targetId === 'profile') loadUserProfile();
+        }
+
+        function handleChatClick() {
+            if (window.Android && typeof window.Android.requestChatWithAd === 'function') {
+                window.Android.requestChatWithAd();
+            } else {
+                console.warn("Android interface not found, navigating directly.");
+                window.location.href = 'https://misecretofree.web.app/chat.html';
+            }
+        }
+
+        function isDesktop() { return window.innerWidth > 1024 && !/Mobi/i.test(navigator.userAgent); }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            loadSavedUserData();
+            document.getElementById('secretInput').addEventListener('input', updateCharCounterText);
+            document.querySelectorAll('.nav-btn').forEach(btn => { if (btn.dataset.target) btn.addEventListener('click', () => switchToTab(btn.dataset.target)); });
+
+            const menuToggle = document.getElementById('menuToggle');
+            const sideMenu = document.getElementById('sideMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            function toggleMenu(show) {
+                sideMenu.classList.toggle('show', show);
+                menuOverlay.classList.toggle('show', show);
+                menuToggle.classList.toggle('is-active', show);
+            }
+            menuToggle.addEventListener('click', () => toggleMenu(true));
+            closeMenuBtn.addEventListener('click', () => toggleMenu(false));
+            menuOverlay.addEventListener('click', () => toggleMenu(false));
+
+            const themeBtn = document.getElementById('toggleThemeBtn');
+            const themes = ['light', 'dark', 'amoled'];
+            const icons = { light: 'light_mode', dark: 'dark_mode', amoled: 'tonality' };
+            function applyTheme(theme) {
+                document.documentElement.className = theme === 'light' ? '' : `${theme}-mode`;
+                themeBtn.textContent = icons[theme];
+                localStorage.setItem('theme', theme);
+            }
+            let currentTheme = localStorage.getItem('theme') || 'light';
+            applyTheme(currentTheme);
+            themeBtn.addEventListener('click', () => {
+                themeBtn.classList.add('animate-theme-toggle');
+                currentTheme = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
+                applyTheme(currentTheme);
+                setTimeout(() => themeBtn.classList.remove('animate-theme-toggle'), 500);
+            });
+
+            const temporadaNavidena = false;
+            const snowBtn = document.getElementById('toggleSnowBtn');
+            const snowContainer = document.getElementById('snow-container') || document.createElement('div');
+            if (!snowContainer.id) {
+                snowContainer.id = 'snow-container';
+                document.body.appendChild(snowContainer);
+                for (let i = 0; i < 50; i++) {
+                    const flake = document.createElement('div');
+                    flake.classList.add('snowflake');
+                    const size = Math.random() * 4 + 2 + 'px';
+                    flake.style.cssText = `width:${size};height:${size};left:${Math.random() * 100}vw;animation-duration:${Math.random() * 5 + 5}s;animation-delay:${Math.random() * 5}s`;
+                    snowContainer.appendChild(flake);
+                }
+            }
+            let isSnowEnabled = temporadaNavidena && localStorage.getItem('snowEnabled') !== 'false';
+            function updateSnowState() {
+                snowContainer.style.display = (isSnowEnabled && temporadaNavidena) ? 'block' : 'none';
+                if (snowBtn) snowBtn.classList.toggle('snow-off', !isSnowEnabled);
+                localStorage.setItem('snowEnabled', isSnowEnabled);
+            }
+            updateSnowState();
+            if (snowBtn) snowBtn.addEventListener('click', () => { isSnowEnabled = !isSnowEnabled; updateSnowState(); });
+
+            let searchTimeout;
+            document.getElementById('searchInput').oninput = e => {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    activeSearchTerm = e.target.value;
+                    reloadDataForCurrentTab();
+                }, 500);
+            };
+
+            const desktopPromo = document.getElementById('desktopPromo');
+            const closePromo = document.getElementById('closePromoBtn');
+            if (closePromo && !localStorage.getItem('hideDesktopPromo') && isDesktop()) setTimeout(() => desktopPromo.classList.add('show'), 2000);
+            closePromo?.addEventListener('click', () => { localStorage.setItem('hideDesktopPromo', 'true'); desktopPromo.style.display = 'none'; });
+
+            document.getElementById('showMySecretsBtn').addEventListener('click', () => {
+                document.getElementById('mySecretsContent').style.display = 'block';
+                document.getElementById('myCommentsContent').style.display = 'none';
+                document.getElementById('showMySecretsBtn').classList.add('active');
+                document.getElementById('showMyCommentsBtn').classList.remove('active');
+                if (userProfileData) loadMySecrets();
+            });
+            document.getElementById('showMyCommentsBtn').addEventListener('click', () => {
+                document.getElementById('mySecretsContent').style.display = 'none';
+                document.getElementById('myCommentsContent').style.display = 'block';
+                document.getElementById('showMySecretsBtn').classList.remove('active');
+                document.getElementById('showMyCommentsBtn').classList.add('active');
+                if (userProfileData) loadMyComments();
+            });
+
+            const topBar = document.querySelector('.top-bar-container');
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                if (topBar.style.display === 'none') return;
+                const currentScrollY = window.scrollY;
+                topBar.classList.toggle('hidden', currentScrollY > lastScrollY);
+                lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+            });
+
+            document.getElementById('deleteAllDataBtn').addEventListener('click', (event) => {
+                event.preventDefault();
+                toggleMenu(false);
+                setTimeout(() => {
+                    showConfirmDialog('¿ESTÁS SEGURO?', 'Esta acción eliminará PERMANENTEMENTE todos tus secretos, comentarios y notificaciones.', () => deleteAllUserData());
+                }, 350);
+            });
+        });
+
+        function setupActivityItemActions(wrapperElement) {
+            const itemElement = wrapperElement.querySelector('.activity-item');
+            const deleteBtn = wrapperElement.querySelector('.delete-action');
+            const isTouchDevice = 'ontouchstart' in window;
+            deleteBtn.addEventListener('click', (event) => {
+                event.stopPropagation();
+                const notificationId = wrapperElement.dataset.id;
+                showConfirmDialog('Eliminar Notificación', '¿Eliminar esta notificación permanentemente?', async () => {
+                    wrapperElement.style.transition = 'height 0.3s ease, opacity 0.3s ease, margin 0.3s ease';
+                    wrapperElement.style.height = '0px';
+                    wrapperElement.style.opacity = '0';
+                    wrapperElement.style.margin = '0';
+                    await deleteNotification(notificationId);
+                    setTimeout(() => wrapperElement.remove(), 300);
+                });
+            });
+            itemElement.addEventListener('click', () => {
+                if (isTouchDevice && itemElement.classList.contains('is-swiped')) { itemElement.classList.remove('is-swiped'); return; }
+                window.showSecretFromNotification(itemElement.dataset.secretId);
+            });
+            if (isTouchDevice) {
+                let startX = 0, isSwiping = false, hasMoved = false;
+                const threshold = -40;
+                itemElement.addEventListener('touchstart', (e) => {
+                    document.querySelectorAll('.activity-item.is-swiped').forEach(s => { if (s !== itemElement) s.classList.remove('is-swiped'); });
+                    startX = e.touches[0].pageX; isSwiping = true; hasMoved = false; itemElement.style.transition = 'none';
+                }, { passive: true });
+                itemElement.addEventListener('touchmove', (e) => {
+                    if (!isSwiping) return;
+                    hasMoved = true;
+                    let diff = Math.max(-70, Math.min(0, e.touches[0].pageX - startX));
+                    itemElement.style.transform = `translateX(${diff}px)`;
+                }, { passive: true });
+                itemElement.addEventListener('touchend', () => {
+                    if (!isSwiping || !hasMoved) return;
+                    isSwiping = false;
+                    itemElement.style.transition = 'transform 0.3s ease-in-out';
+                    const endX = parseFloat(itemElement.style.transform.replace('translateX(', '')) || 0;
+                    itemElement.classList.toggle('is-swiped', endX < threshold);
+                    itemElement.style.transform = '';
+                });
+            }
+        }
+
+        async function deleteNotification(notificationId) {
+            if (!notificationId) return;
+            try {
+                const itemRef = ref(rtdb, `notifications/${currentUID}/${notificationId}`);
+                await remove(itemRef);
+                logEvent(analytics, 'delete_notification');
+            } catch (error) {
+                console.error("Error al eliminar la notificación:", error);
+                showToast("No se pudo eliminar la notificación.", true);
+            }
+        }
+        window.deleteNotification = deleteNotification;
+
+        async function deleteAllNotifications() {
+            if (!currentUID) return;
+            const notifRef = ref(rtdb, `notifications/${currentUID}`);
+            try {
+                const snapshot = await get(notifRef);
+                if (!snapshot.exists()) { showToast("No tienes notificaciones para borrar.", true); return; }
+                await remove(notifRef);
+                const activityContent = document.getElementById('activityContent');
+                activityContent.innerHTML = '';
+                showEmptyState(activityContent, "Todas las notificaciones han sido eliminadas.");
+                showToast("Notificaciones eliminadas con éxito.");
+                logEvent(analytics, 'delete_all_notifications');
+            } catch (error) {
+                console.error("Error al eliminar notificaciones:", error);
+                showToast("Ocurrió un error al intentar borrar.", true);
+            }
+        }
+
+        function deleteMyCommentFromProfile(btn, secretId, commentId) {
+            showConfirmDialog('Eliminar Comentario', '¿Eliminar este comentario de tu historial?', async () => {
+                const commentItem = btn.closest('.my-comment-item');
+                await performCommentSoftDelete(secretId, commentId);
+                try {
+                    const historyRef = ref(rtdb, `user_comments_history/${currentUID}/${commentId}`);
+                    await remove(historyRef);
+                    commentItem.style.transition = 'opacity 0.3s ease, height 0.3s ease, margin 0.3s ease';
+                    commentItem.style.opacity = '0';
+                    commentItem.style.height = '0px';
+                    commentItem.style.marginTop = '0';
+                    commentItem.style.marginBottom = '0';
+                    setTimeout(() => {
+                        commentItem.remove();
+                        const container = document.getElementById('myCommentsContent');
+                        if (!container.hasChildNodes()) showEmptyState(container, "Aún no has publicado ningún comentario.");
+                    }, 300);
+                    showToast("Comentario eliminado de tu historial.");
+                } catch (error) {
+                    console.error("Error al borrar del historial:", error);
+                    showToast("Error al actualizar tu perfil.", true);
+                }
+            });
+        }
+
+        async function deleteQueryBatch(db, q) {
+            const snapshot = await getDocs(q);
+            const batchSize = 500;
+            let i = 0;
+            let batch = writeBatch(db);
+            snapshot.docs.forEach(d => {
+                batch.delete(d.ref);
+                i++;
+                if (i === batchSize) { batch.commit(); batch = writeBatch(db); i = 0; }
+            });
+            if (i > 0) await batch.commit();
+        }
+
+        async function deleteAllUserData() {
+            if (!currentUID) { showToast("Error: No se ha podido identificar al usuario.", true); return; }
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            loadingOverlay.style.display = 'flex';
+            try {
+                const secretsQuery = query(collection(db, 'secrets'), where('uid', '==', currentUID));
+                await deleteQueryBatch(db, secretsQuery);
+                await remove(ref(rtdb, `notifications/${currentUID}`));
+                await remove(ref(rtdb, `user_comments_history/${currentUID}`));
+                showToast("Todos tus datos han sido eliminados con éxito.");
+                logEvent(analytics, 'delete_all_data');
+                setTimeout(() => location.reload(), 2000);
+            } catch (error) {
+                console.error("Error masivo al eliminar datos:", error);
+                showToast("Ocurrió un error grave durante el borrado.", true);
+                loadingOverlay.style.display = 'none';
+            }
+        }
+
+        window.voteSecret = voteSecret;
+        window.voteResponse = voteResponse;
+        window.handleChatClick = handleChatClick;
+        window.showSecretFromNotification = showSecretFromNotification;
+        window.deleteMyCommentFromProfile = deleteMyCommentFromProfile;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
