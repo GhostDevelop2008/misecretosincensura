@@ -2,3 +2,6 @@
 
 
 Ahora con este hackeo tienes acceso al boton de spam que spamea 3 mensajes a la vez, al igual que cada de que escribes un mensaje creces de nivel, puedes hacer varias cosas xdddd
+
+
+Si ere el dueño, contactame ghost.studios.oficial.info@gmail.com, no muerdo y se programar bien :)
