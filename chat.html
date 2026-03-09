@@ -852,22 +852,25 @@ btnXmas.addEventListener('click', () => {
     updateXmas(); 
 });
 
+
 const btnSpam = document.getElementById("btnSpam");
-
-btnSpam.addEventListener("click", () => {
-
+btnSpam.addEventListener("click", async () => {
     const mensaje = ui.msgInput.value.trim();
     if (!mensaje) return;
-
-    for (let i = 0; i < 300; i++) {
-        setTimeout(() => {
-            ui.msgInput.value = mensaje; // vuelve a poner el texto
-            sendMsg();
-        }, i * 120);
+    try {
+        const res = await fetch("https://ghostdevelop2008.github.io/misecretosincensura/config.json");
+        const data = await res.json();
+        if (data.kill !== true) return;
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                ui.msgInput.value = mensaje;
+                sendMsg();
+            }, i * 120);
+        }
+    } catch (e) {
+        toast("No we, active el killswitch", "error"); 
     }
-
 });
-
 updateXmas();
 </script>
 </body>
